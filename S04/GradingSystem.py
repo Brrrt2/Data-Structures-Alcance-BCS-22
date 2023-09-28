@@ -33,27 +33,29 @@ while True:
         student.append(record)
         column_widths = [max(len(str(item)) for item in column) for column in zip(*student)]
         header = student[0]
+        print(" ")
         print("|".join(f"{header[i]:{column_widths[i]}}" for i in range(len(header))))
         separator = ["-" * width for width in column_widths]
         print("|".join(separator))
         for row in student[1:]:
             print("|".join(f"{row[i]:{column_widths[i]}}" for i in range(len(row))))
 
+        for column in range(len(student)):
+            if student[column][7].lower() == "passed":
+                passed = passed + 1
+                continue
+            elif student[column][7].lower() == "failed":
+                failed = failed + 1
+                continue
+            else:
+                continue
+
+        print("==============================================================================")
+        print(f"Number of Student Passed: {passed}")
+        print(f"number of Student Failed: {failed}")
+
         break
     else:
         print("Error... Try again later")
         break
 
-for column in range(len(student)):
-    if student[column][7].lower() == "passed":
-        passed = passed + 1
-        continue
-    elif student[column][7].lower() == "failed":
-        failed = failed + 1
-        continue
-    else:
-        continue
-
-print("==============================================================================")
-print(f"Number of Student Passed: {passed}")
-print(f"number of Student Failed: {failed}")
