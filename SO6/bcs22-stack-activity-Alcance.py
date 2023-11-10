@@ -6,34 +6,35 @@ class Task:
 
 class TaskManager:
     def __init__(self):
-        self.task_stack = []
+        self.tasks = []
 
-    def add_task(self, title, description):
+    def add_task(self):
+        title = input("Enter task title: ")
+        description = input("Enter task description: ")
         task = Task(title, description)
-        self.task_stack.append(task)
+        self.tasks.append(task)
+        print("Task added successfully.")
 
     def mark_task_as_completed(self):
-        if not self.task_stack:
+        if not self.tasks:
             print("No tasks to mark as completed.")
         else:
-            print("Tasks:")
-            for index, task in enumerate(self.task_stack):
-                print(f"{index + 1}. {task.title} ({'Completed' if task.completed else 'Incomplete'})")
-            
+            self.display_tasks()
             task_index = int(input("Enter the task number to mark as completed: ")) - 1
-            if 0 <= task_index < len(self.task_stack):
-                self.task_stack[task_index].completed = True
-                print(f"{self.task_stack[task_index].title} marked as completed.")
+            if 0 <= task_index < len(self.tasks):
+                self.tasks[task_index].completed = True
+                print(f"{self.tasks[task_index].title} marked as completed.")
             else:
                 print("Invalid task number. No task marked as completed.")
 
     def display_tasks(self):
-        if not self.task_stack:
+        if not self.tasks:
             print("No tasks.")
         else:
             print("Tasks:")
-            for index, task in enumerate(self.task_stack):
-                print(f"{index + 1}. {task.title} - {task.description} ({'Completed' if task.completed else 'Incomplete'})")
+            for index, task in enumerate(self.tasks, start=1):
+                status = "Completed" if task.completed else "Incomplete"
+                print(f"{index}. {task.title} - {task.description} ({status})")
 
     def run(self):
         while True:
@@ -42,13 +43,11 @@ class TaskManager:
             print("2. Mark Task as Completed")
             print("3. Display Tasks")
             print("4. Exit")
+
             choice = input("Enter your choice: ")
 
             if choice == '1':
-                title = input("Enter task title: ")
-                description = input("Enter task description: ")
-                self.add_task(title, description)
-                print("Task added successfully.")
+                self.add_task()
             elif choice == '2':
                 self.mark_task_as_completed()
             elif choice == '3':
