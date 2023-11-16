@@ -75,4 +75,4 @@ if __name__ == "__main__":
             break
         # Ask if the user wants to check another sentence.
 
-#
+
