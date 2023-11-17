@@ -32,9 +32,9 @@ class PalindromeChecker:
     # Create a cleaned version of the input sentence by manually checking for alphabetic characters and converting to lowercase.
     def clean_sentence(self, data):
         cleaned = ""
-        for char in data:
-            if 'a' <= char <= 'z' or 'A' <= char <= 'Z':
-                cleaned += char.lower()
+        for x in data:
+            if 'a' <= x <= 'z' or 'A' <= x <= 'Z':
+                cleaned += x.lower()
         return cleaned
 
     # Check if the cleaned sentence is a palindrome.
