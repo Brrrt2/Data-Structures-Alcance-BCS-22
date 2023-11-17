@@ -9,14 +9,11 @@ class PalindromeChecker:
 
     # Initialize the PalindromeChecker class with an empty stack and an empty input sentence.
     def __init__(self):
-        
         self.top = None
         self.sentence = ""
 
-
     # Take user input for a sentence, push each character onto the stack, and display the palindrome result.
     def input(self):
-        
         self.sentence = input("Enter a sentence you want to check: ")
         for char in self.sentence:
             self.push(char)
@@ -32,11 +29,11 @@ class PalindromeChecker:
             new_node.next = self.top
             self.top = new_node
 
-    # Create a cleaned version of the input sentence by removing non-alphabetic characters and converting to lowercase.
+    # Create a cleaned version of the input sentence by manually checking for alphabetic characters and converting to lowercase.
     def clean_sentence(self, data):
         cleaned = ""
         for char in data:
-            if char.isalpha():
+            if 'a' <= char <= 'z' or 'A' <= char <= 'Z':
                 cleaned += char.lower()
         return cleaned
 
@@ -59,20 +56,16 @@ class PalindromeChecker:
 
 # Create an instance of the PalindromeChecker class and initiate the palindrome checking loop.
 if __name__ == "__main__":
-    
     checker = PalindromeChecker()
     print("====================== Welcome to Palindrome Checker! ======================")
 
     while True:
-        
         checker.input()
         # Take input, check for palindrome, and display the result.
-        
+
         new_sentence = input("Do you want to check another sentence? Yes | No:\n ").lower()
         print("")
         if new_sentence != "yes":
             print("Closing...")
             break
         # Ask if the user wants to check another sentence.
-
-
