@@ -4,35 +4,43 @@ class Node:
         self.left = None
         self.right = None
 
-def vertical_order_left_to_right(root, column, nodes):
+def traverse_left_to_right(root, column, nodes_dict):
     if root is None:
         return
-    nodes.setdefault(column, []).append(root.key)
 
-    vertical_order_left_to_right(root.left, column - 1, nodes)
-    vertical_order_left_to_right(root.right, column + 1, nodes)
+    try:
+        nodes_dict[column].append(root.key)
+    except KeyError:
+        nodes_dict[column] = [root.key]
 
-def vertical_order_right_to_left(root, column, nodes):
+    traverse_left_to_right(root.left, column - 1, nodes_dict)
+    traverse_left_to_right(root.right, column + 1, nodes_dict)
+
+def traverse_right_to_left(root, column, nodes_dict):
     if root is None:
         return
-    nodes.setdefault(column, []).append(root.key)
 
-    vertical_order_right_to_left(root.right, column - 1, nodes)
-    vertical_order_right_to_left(root.left, column + 1, nodes)
+    try:
+        nodes_dict[column].append(root.key)
+    except KeyError:
+        nodes_dict[column] = [root.key]
+
+    traverse_right_to_left(root.right, column - 1, nodes_dict)
+    traverse_right_to_left(root.left, column + 1, nodes_dict)
 
 def print_reverse_right_to_left(root):
-    reversed_nodes = {}
+    nodes_dict = {}
     reversed_result = []
     distance = 0
-    vertical_order_left_to_right(root, distance, reversed_nodes)
+    traverse_left_to_right(root, distance, nodes_dict)
 
-    print("Output:")
-    for value in sorted(reversed_nodes, reverse=True):
-        reversed_result.extend(reversed_nodes[value])
+    for index, value in enumerate(sorted(nodes_dict)):
+        for i in nodes_dict[value]:
+            reversed_result.append(i)
 
-    print(str(reversed_result))
+    print(str(reversed_result[::-1]))
 
-def print_result(root):
+def print_tree_result(root):
     print_reverse_right_to_left(root)
 
 def main():
@@ -46,6 +54,6 @@ def main():
     root.right.left.right = Node(8)
     root.right.right.right = Node(9)
 
-    print_result(root)
+    print_tree_result(root)
 
 main()
